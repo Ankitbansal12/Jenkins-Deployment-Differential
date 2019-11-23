@@ -4,4 +4,6 @@ public class CICDDeploymentClass {
     public static String secondDeploy = 'Im the second deploy for base';
     public static String thirdDeploy = 'Im the third deploy for base';
     public static String thirdDeploy = 'Im the fourth deploy for base';
+    
+    
 }

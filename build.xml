@@ -44,8 +44,11 @@
 		<copy file="${sf.samplePackageXML}" tofile="${sf.deployDir}/package.xml"/>
 		<echo>Current GIT Commit : ${env.GIT_COMMIT}</echo>
 		<echo>Previous Known Successful GIT Commit : ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}</echo>
+		<echo>This the next step after previous commit</echo>
 		<gitDiff/>
+		<echo>This is the step after gitdiff</echo>
 		<for list="${git.diff}" param="currentDiff" delimiter="${line.separator}">
+			<echo>This is the step after for gitdiff</echo>
 			<sequential>
 				<if>
 					<and>

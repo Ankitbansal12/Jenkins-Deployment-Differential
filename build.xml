@@ -10,6 +10,11 @@
 	<property name="canDeploy" value="false"/>
 	
 	<!-- <property name="sf.fetchFromDuration"      value="${env.fetchFromDuration}"/> -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="lib/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
 	<taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce">
 		<classpath>
 			<pathelement location="lib/ant-salesforce.jar"/>

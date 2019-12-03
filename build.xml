@@ -27,7 +27,7 @@
 	</taskdef>
     <macrodef name="gitDiff">
 		<sequential>
-			<exec executable="git" outputproperty="git.diff">
+			<exec executable="${gitEXE}" outputproperty="git.diff">
 				<arg value="diff" />
 				<arg value="--pretty=format:" />
 				<arg value="--name-only" />

@@ -39,7 +39,7 @@
 				<arg value="${env.GIT_COMMIT}" />
 				<arg value="${env.GIT_PREVIOUS_COMMIT}" />
 			</exec>
-			<echo>${git.diff}</echo>
+			
 		</sequential>
 	</macrodef>
 
@@ -51,10 +51,10 @@
 		<echo>Previous Known Successful GIT Commit : ${env.GIT_PREVIOUS_COMMIT}</echo>
 		<echo>This the next step after previous commit</echo>
 		<gitDiff/>
-		<echo>${git.diff}</echo>
+		
 		<echo>This is the step after gitdiff</echo>
 		<for list="${git.diff}" param="currentDiff" delimiter="${line.separator}">
-			<echo>This is the step after for gitdiff</echo>
+			
 			<sequential>
 				<if>
 					<and>

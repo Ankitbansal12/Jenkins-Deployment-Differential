@@ -1,8 +1,7 @@
 #!groovy
 import groovy.json.JsonSlurperClassic
 node {
-    def branch = env.BRANCH_NAME
-    echo ${branch}
+   def gitEXE=C:/Program Files/Git/cmd/git.exe
     def antVersion = 'Ant'
     jdk = tool name: 'JDK'
     env.JAVA_HOME = "${jdk}"

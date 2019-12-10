@@ -1,7 +1,7 @@
 #!groovy
 import groovy.json.JsonSlurperClassic
 node {
-
+    def branch = env.BRANCH_NAME
     def antVersion = 'Ant'
     jdk = tool name: 'JDK'
     env.JAVA_HOME = "${jdk}"
@@ -16,8 +16,6 @@ node {
     bat '%ANT_HOME%/bin/ant.bat  builderWithGitDiff'
     }
     
-            printf rmsg
-            println('Hello from a Job DSL script!')
-            println(rmsg)
+           
     }
 	}

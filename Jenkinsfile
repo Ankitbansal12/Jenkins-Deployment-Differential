@@ -13,12 +13,11 @@ node {
     env.JAVA_HOME = "${jdk}"
     
     
-	    stage('Checkout code') {
+	    stage('Checkout') {
   steps {
     script {
       // Checkout the repository and save the resulting metadata
-      def scmVars = checkout([
-        $class: 'LocalBranch', localBranch: "**"])
+      def scmVars = checkout scm
 
       // Display the variable using scmVars
       echo "scmVars.GIT_COMMIT"

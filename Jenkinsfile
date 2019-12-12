@@ -2,7 +2,7 @@
 import groovy.json.JsonSlurperClassic
 node {
    def branch = env.BRANCH_NAME
-   bat "My branch name: ${branch}"
+   bat "echo My branch name: ${branch}"
     def antVersion = 'Ant'
     jdk = tool name: 'JDK'
     env.JAVA_HOME = "${jdk}"

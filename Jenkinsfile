@@ -18,9 +18,7 @@ node {
     script {
       // Checkout the repository and save the resulting metadata
       def scmVars = checkout([
-        $class: 'GitSCM',
-        ...
-      ])
+        $class: 'GitSCM'])
 
       // Display the variable using scmVars
       echo "scmVars.GIT_COMMIT"

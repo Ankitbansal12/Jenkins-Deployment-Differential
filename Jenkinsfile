@@ -1,7 +1,7 @@
 #!groovy
 import groovy.json.JsonSlurperClassic
 node {
-   def gitEXE=C:/Program Files/Git/cmd/git.exe
+   def gitEXE = env.gitEXE
    def branch = env.BRANCH_NAME
    bat "echo My branch name: ${branch}"
    def commit =env.GIT_COMMIT

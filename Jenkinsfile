@@ -5,7 +5,7 @@ node {
     def antVersion = 'Ant'
     jdk = tool name: 'JDK'
     env.JAVA_HOME = "${jdk}"
-
+    bat "echo ${env.GIT_PREVIOUS_COMMIT}"
     stage('checkout source') {
         // when running in multi-branch job, one must issue this command
         checkout scm

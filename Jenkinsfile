@@ -31,7 +31,6 @@ node {
     }
 
     // Here the metadata is available as environment variable
-    ...
   }
 }
 	stage('ANT')

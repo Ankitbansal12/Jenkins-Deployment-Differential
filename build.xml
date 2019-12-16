@@ -1,11 +1,6 @@
 <project name="test" default="sync" xmlns:sf="antlib:com.salesforce">
 	<property environment="env"/>
-	<property name="sf.username"      value="${env.username}"/>
-	<property name="sf.password"      value="${env.password}"/>
-	<property name="sf.clientId"      value="${env.clientId}"/>
-	<property name="sf.clientSecret"      value="${env.clientSecret}"/>
-	<property name="sf.refreshToken"      value="${env.refreshToken}"/>
-	<property name="sf.serverurl"      value="${env.serverurl}"/>
+	
 	<property name="sf.branch"      value="${env.branch}"/>
 	<property name="canDeploy" value="false"/>
 	
@@ -173,121 +168,16 @@
     	<sf:retrieve username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" retrieveTarget="src" unpackaged="package.xml"/>
     </target>
 
-    <target name="deploy">
-		<echo>Deployment Begins...</echo>
-		<if>
-			<and><equals arg1="${canDeploy}" arg2="true"/> </and>
-			<then>
-				<sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" maxPoll="${sf.maxPoll}" deployRoot="${sf.deployDir}" rollbackOnError="true"/>
-			</then>
-			<else>
-				<echo>Nothing to deploy</echo>
-			</else>
-		</if>
-    </target>
+    
 	
-	<target name="getSessionId">
-    	<exec executable="curl" outputproperty="curl.result">
-			<arg line="-X POST ${sf.serverurl}/services/oauth2/token?grant_type=refresh_token&amp;client_id=${sf.clientId}&amp;client_secret=${sf.clientSecret}&amp;refresh_token=${sf.refreshToken}"/>
-		</exec>
-		<echo>${curl.result}</echo>
-		<for param="line" list="${curl.result}" delimiter="${line.separator}">
-		 <sequential>
-			<if>
-				<matches pattern="${response.regex}" string="@{line}"/>
-				<then>
-					<propertyregex
-						property="accessToken"
-						input="@{line}"
-						regexp="${response.regex}"
-						select="\1"
-						casesensitive="false"/>
-				</then>
-			</if>
-		  </sequential>
-		</for>
-		<echo>Access Token Obtained From Salesforce :  ${accessToken}</echo>
-    </target>
 	
-	<target name="deployProd" depends="getSessionId">
-		<echo>Deployment Begins...</echo>
-		<if>
-			<and><equals arg1="${canDeploy}" arg2="true"/> </and>
-			<then>
-				<fail message="Test Class Not Specified" unless="env.testClass"/>
-				<echo>${env.testClass}</echo>
-				<script language="javascript"><![CDATA[
-				var deployTask = project.createTask('antlib:com.salesforce:deploy');
-				deployTask.setSessionId(project.getProperty("accessToken"));
-				deployTask.setServerURL(project.getProperty("sf.serverurl"));
-				deployTask.setDeployRoot(project.getProperty("sf.deployDir"));
-				deployTask.setTestLevel('RunSpecifiedTests');
-				deployTask.setMaxPoll(project.getProperty("sf.maxPoll"));
-				var tests = project.getProperty("env.testClass");
-				if (tests) {
-					deployTask.setTestLevel('RunSpecifiedTests');
-					tests = tests.split(',');
-					for (var i = 0; i < tests.length; i++) {
-						var runTest = java.lang.Class.forName(
-						"com.salesforce.ant.DeployTask$CodeNameElement"
-						).newInstance();
-						runTest.addText(tests[i]);
-						deployTask.addRunTest(runTest);
-					}
-					deployTask.perform();
-				}
-				]]></script>
-			</then>
-			<else>
-				<echo>Nothing to deploy</echo>
-			</else>
-		</if>
-    </target>
 	
-	<target name="validateProd" depends="getSessionId">
-		<echo>Validation Begins...</echo>
-		<if>
-			<and><equals arg1="${canDeploy}" arg2="true"/> </and>
-			<then>
-				<fail message="Test Class Not Specified" unless="env.testClass"/>
-				<echo>${env.testClass}</echo>
-				<script language="javascript"><![CDATA[
-				var deployTask = project.createTask('antlib:com.salesforce:deploy');
-				deployTask.setSessionId(project.getProperty("accessToken"));
-				deployTask.setServerURL(project.getProperty("sf.serverurl"));
-				deployTask.setDeployRoot(project.getProperty("sf.deployDir"));
-				deployTask.setCheckonly(true);
-				deployTask.setTestLevel('RunSpecifiedTests');
-				deployTask.setMaxPoll(project.getProperty("sf.maxPoll"));
-				var tests = project.getProperty("env.testClass");
-				if (tests) {
-					deployTask.setTestLevel('RunSpecifiedTests');
-					tests = tests.split(',');
-					for (var i = 0; i < tests.length; i++) {
-						var runTest = java.lang.Class.forName(
-						"com.salesforce.ant.DeployTask$CodeNameElement"
-						).newInstance();
-						runTest.addText(tests[i]);
-						deployTask.addRunTest(runTest);
-					}
-					deployTask.perform();
-				}
-				]]></script>
-			</then>
-			<else>
-				<echo>Nothing to deploy</echo>
-			</else>
-		</if>
-    </target>
+	
+	
+	
 
-	<target name="builderWithGitDiff" depends="diffBuilderWithGitCommit,deploy">
+	<target name="builderWithGitDiff" depends="diffBuilderWithGitCommit">
 		
     </target>
 	
-	<target name="builderProd" depends="diffBuilderWithGitCommit,deployProd">
-		
-    </target>
-	<target name="builderValidateProd" depends="diffBuilderWithGitCommit,validateProd">
-		
-    </target>
 </project>

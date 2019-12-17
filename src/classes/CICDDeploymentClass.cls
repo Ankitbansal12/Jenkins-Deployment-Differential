@@ -10,5 +10,5 @@ public class CICDDeploymentClass {
      public static String thirdDeploy = 'Im the seventh deploy for base';
     public static String thirdDeploy = 'Im the next deploy for base';
     public static String thirdDeploy = 'Im the deploy for base';
-
+    public static String thirdDeploy = 'Im the deploy for base';
 }

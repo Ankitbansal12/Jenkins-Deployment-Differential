@@ -14,7 +14,7 @@ node {
 	stage('ANT')
 	{
     withEnv( ["ANT_HOME=${tool antVersion}"] ) {
-    bat '%ANT_HOME%/bin/ant.bat  builderWithGitDiff'
+    sh '%ANT_HOME%/bin/ant.bat  builderWithGitDiff'
     }
     
            

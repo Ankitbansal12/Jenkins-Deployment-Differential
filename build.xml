@@ -45,7 +45,7 @@
 		<echo>Current GIT Commit : ${env.GIT_COMMIT}</echo>
 		<echo>Previous Known Successful GIT Commit : ${env.GIT_PREVIOUS_COMMIT}</echo>
 		<echo>This the next step after previous commit</echo>
-		<echo>Branch Name : ${env.BRANCH_NAME]</echo>
+		<echo>Branch Name : ${env.GIT_BRANCH}</echo>
 		<gitDiff/>
 		
 		<echo>This is the step after gitdiff</echo>

@@ -8,7 +8,7 @@ node {
     
         stage('Checkout') {
              
-	   checkout([$class: ‘GitSCM’, branches: [[name: ‘/feature/’]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: ‘LocalBranch’, localBranch: “**”]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: ‘04f62bdf-e233-XXXX-XXXX-4fd5df294637’, url: ‘ssh://geek-kb@geek-kb.visualstudio.com:22/_git/scripts’]]])
+	   checkout([$class: ‘GitSCM’, branches: [[name: ‘/feature/’]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: ‘LocalBranch’, localBranch: “**”]], submoduleCfg: [], userRemoteConfigs: []])
                           }
 	stage('ANT')
 	{

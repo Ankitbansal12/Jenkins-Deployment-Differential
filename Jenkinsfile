@@ -7,9 +7,15 @@ node {
     env.JAVA_HOME = "${jdk}"
     
         stage('Checkout') {
-             
-	   checkout([$class: ‘GitSCM’, branches: [[name: ‘/feature/’]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: ‘LocalBranch’, localBranch: “**”]], submoduleCfg: [], userRemoteConfigs: []])
-                          }
+		
+		checkout([$class: 'GitSCM', 
+    branches: [[name: '*/master']], 
+    doGenerateSubmoduleConfigurations: false, 
+    extensions: [[$class: ‘LocalBranch’, localBranch: “**”]], 
+    submoduleCfg: [], 
+    userRemoteConfigs: [[]]
+])
+            }
 	stage('ANT')
 	{
     withEnv( ["ANT_HOME=${tool antVersion}"] ) {
